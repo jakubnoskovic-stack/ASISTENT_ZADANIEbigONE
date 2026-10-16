@@ -1,238 +1,306 @@
-﻿using System.Collections.Specialized;
-using System.Diagnostics.CodeAnalysis;
+﻿using System;
+
+void VykonajSum()
+{
+    Console.Write("Zadaj prvé číslo: ");
+    double cislo1;
+    while (!double.TryParse(Console.ReadLine(), out cislo1))
+    {
+        Console.Write("Toto nie je číslo. Skús znova: ");
+    }
+
+    Console.Write("Zadaj druhé číslo: ");
+    double cislo2;
+    while (!double.TryParse(Console.ReadLine(), out cislo2))
+    {
+        Console.Write("Toto nie je číslo. Skús znova: ");
+    }
+
+    double vysledok = cislo1 + cislo2;
+    Console.WriteLine(cislo1 + " + " + cislo2 + " = " + vysledok);
+}
+
+void VykonajOdm()
+{
+    Console.Write("Zadaj číslo na odmocnenie: ");
+    double cislo;
+    while (!double.TryParse(Console.ReadLine(), out cislo) || cislo < 0)
+    {
+        if (cislo < 0)
+        {
+            Console.Write("Odmocnina zo záporného čísla neexistuje. Zadaj číslo >= 0: ");
+        }
+        else
+        {
+            Console.Write("Toto nie je číslo. Skús znova: ");
+        }
+    }
+
+    double vysledok = Math.Sqrt(cislo);
+    Console.WriteLine("Odmocnina z " + cislo + " je " + vysledok);
+}
 
 void VykonajFind()
 {
-    Boolean NajdiSlovo(string vstup, string hladanéSlovo)
-    {
-        vstup = vstup.ToLower();
-        hladanéSlovo = hladanéSlovo.ToLower();
-        Boolean PravdivostnáHodnota = false;
-        if (vstup.Contains(hladanéSlovo))
-        {
-            PravdivostnáHodnota = true;
-        }
-
-        return PravdivostnáHodnota;
-    }
-
     Console.Write("Napíš vetu: ");
     string vstup = Console.ReadLine();
     Console.Write("Čo chceš nájsť: ");
-    string hladanyText = Console.ReadLine();
-    if (NajdiSlovo(vstup, hladanyText) == true)
+    string hladaneSlovo = Console.ReadLine();
+
+    if (vstup.ToLower().Contains(hladaneSlovo.ToLower()))
     {
-        Console.WriteLine("Tento text sa tam nachádza :).");
+        Console.WriteLine("Tento text sa tam nachádza.");
     }
     else
     {
-        Console.WriteLine("Tento text sa tam nenachádza :(.");
+        Console.WriteLine("Tento text sa tam nenachádza.");
     }
-}
-
-void UrobSum()
-{
-    double spočítaj(double input1, double input2)
-    {
-        double vysledok = input1 + input2;
-        return vysledok;
-    }
-
-    double odčítaj(double input1, double input2)
-    {
-        double vysledok = input1 - input2;
-        return vysledok;
-    }
-
-    double vydel(double input1, double input2)
-    {
-        double vysledok = input1 / input2;
-        return vysledok;
-    }
-
-    double vynasob(double input1, double input2)
-    {
-        double vysledok = input1 * input2;
-        return vysledok;
-    }
-
-    Console.Write("Napíš prvé čislo na operáciu: ");
-    double Cislo1;
-    while (!double.TryParse(Console.ReadLine(), out Cislo1))
-    {
-        Console.Write("Toto neni číslo. Skús znova: ");
-    }
-
-    Console.Write("Napíš druhé čislo na operáciu: ");
-    double Cislo2;
-    while (!double.TryParse(Console.ReadLine(), out Cislo2))
-    {
-        Console.Write("Toto neni číslo. Skús znova: ");
-    }
-
-    Console.WriteLine("Akú operáciu chceš vykonať?");
-    Console.WriteLine("/násob");
-    Console.WriteLine("/vydel");
-    Console.WriteLine("/sčítaj");
-    Console.WriteLine("/odčítaj");
-    string PrikazSum = Console.ReadLine();
-    while (PrikazSum != "/násob" && PrikazSum != "/vydel" && PrikazSum != "/sčítaj" && PrikazSum != "/odčítaj")
-    {
-        Console.Write("Toto nie je žiaden príkaz. Skús znova: ");
-        PrikazSum = Console.ReadLine();
-    }
-
-    if (PrikazSum == "/sčítaj")
-    {
-        double vysledok = spočítaj(Cislo1, Cislo2);
-        Console.WriteLine("Toto je vysledok: " + vysledok);
-    }
-
-    if (PrikazSum == "/odčítaj")
-    {
-        double vysledok = odčítaj(Cislo1, Cislo2);
-        Console.WriteLine("Toto je vysledok: " + vysledok);
-    }
-
-    if (PrikazSum == "/vydel")
-    {
-        double vysledok = vydel(Cislo1, Cislo2);
-        Console.WriteLine("Toto je vysledok: " + vysledok);
-    }
-
-    if (PrikazSum == "/násob")
-    {
-        double vysledok = vynasob(Cislo1, Cislo2);
-        Console.WriteLine("Toto je vysledok: " + vysledok);
-    }
-}
-
-void UrobOdmocnenie()
-{
-    double odmocni(double vklad)
-    {
-        double odmocnina = Math.Sqrt(vklad);
-        return odmocnina;
-    }
-
-    double cisloOdmocnina;
-    Console.Write("Napíš číslo na odmocnenie: ");
-    while (!double.TryParse(Console.ReadLine(), out cisloOdmocnina))
-    {
-        Console.Write("Toto neni číslo. Skús znova: ");
-    }
-
-    Console.WriteLine("Toto je vysledok: " + odmocni(cisloOdmocnina));
 }
 
 void VykonajHelp()
 {
-    Console.WriteLine("Toto sú príkazy, ktoré môžeš použiť:");
-    Console.WriteLine("/sum --> Toto je základná kalkulačka.");
-    Console.WriteLine("/odmocni --> Toto ti odmocni číslo");
-    Console.WriteLine("/find -->Toto ti povie či sa v texte nachádza určité slovo.");
-    Console.WriteLine("/rect -->Toto ti pomoze s operáciamy na obdížniky.");
+    Console.WriteLine("Podporované príkazy:");
+    Console.WriteLine("  sum    - sčítanie dvoch čísel");
+    Console.WriteLine("  odm    - odmocnina zo zadaného čísla");
+    Console.WriteLine("  find   - nájde podreťazec vo vete");
+    Console.WriteLine("  rect   - zapne mód merania obdĺžnikov");
+    Console.WriteLine("  array  - zapne mód práce s poľom");
+    Console.WriteLine("  help   - vypíše podporované príkazy");
+    Console.WriteLine("  exit   - ukončí program");
+}
+
+double VypocitajObsah(double a, double b)
+{
+    return a * b;
+}
+
+double VypocitajObvod(double a, double b)
+{
+    return 2 * (a + b);
+}
+
+double VypocitajUhlopriecku(double a, double b)
+{
+    return Math.Sqrt(a * a + b * b);
 }
 
 void VykonajRect()
 {
-    Console.WriteLine("Ak chceš vypočítať Obvod zadaj '/Obvod', ak chceš vypočítať obsah napíš '/Obsah' a ak chceš vypočítať uhlopriečku napíš '/Uhlopriečka'.");
-    string prikaz = Console.ReadLine();
-    while (prikaz != "/Obvod" && prikaz != "/Obsah" && prikaz != "/Uhlopriečka")
-    {
-        Console.Write("Toto nieje platný príkaz. Skús znova: ");
-        prikaz=Console.ReadLine();
-    }
-    Console.WriteLine("Napíš stanu 'a' a potom stranu 'b': ");
+    Console.WriteLine("Ideme merať obdĺžnik.");
+    
     double a;
+    Console.Write("Zadaj dĺžku prvej strany: ");
+    while (!double.TryParse(Console.ReadLine(), out a) || a <= 0)
+    {
+        Console.Write("Strana musí byť číslo väčšie ako 0. Skús znova: ");
+    }
+
     double b;
-    while (!double.TryParse(Console.ReadLine(), out a))
+    Console.Write("Zadaj dĺžku druhej strany: ");
+    while (!double.TryParse(Console.ReadLine(), out b) || b <= 0)
     {
-        Console.Write("Toto neni číslo. Skús znova: ");
-        Console.ReadLine();
-    }
-    while (!double.TryParse(Console.ReadLine(), out b))
-    {
-        Console.Write("Toto neni číslo. Skús znova: ");
-        Console.ReadLine();
-    }
-    if (prikaz == "/Obvod")
-    {
-        double vysledok = 2 * (a + b);
-        Console.WriteLine("Obvod obdĺžnika je "+vysledok);
+        Console.Write("Strana musí byť číslo väčšie ako 0. Skús znova: ");
     }
 
-    if (prikaz == "/Obsah")
-    {
-        double vysledok = a * b;
-        Console.WriteLine("Obsah obdĺžnika je "+vysledok);
-    }
+    Console.WriteLine("Máme obdĺžnik o rozmeroch " + a + "x" + b + ", čo chceš vypočítať? (area, perimeter, diagonal)");
 
-    if (prikaz == "/Uhlopriečka")
+    while (true)
     {
-        double vysledok = Math.Sqrt(a * a + b * b);
-        Console.WriteLine("Uhlopriečka obdĺžnika je " + vysledok);
+        Console.Write("> ");
+        string prikaz = Console.ReadLine();
+
+        if (prikaz == "exit")
+        {
+            break;
+        }
+        else if (prikaz == "area")
+        {
+            Console.WriteLine("Obsah obdĺžnika je " + VypocitajObsah(a, b));
+        }
+        else if (prikaz == "perimeter")
+        {
+            Console.WriteLine("Obvod obdĺžnika je " + VypocitajObvod(a, b));
+        }
+        else if (prikaz == "diagonal")
+        {
+            Console.WriteLine("Uhlopriečka obdĺžnika je " + VypocitajUhlopriecku(a, b));
+        }
+        else
+        {
+            Console.WriteLine("Neznámy príkaz pre obdĺžnik. Použi: area, perimeter, diagonal alebo exit.");
+        }
     }
 }
 
-Console.WriteLine("Ahoj som tovoj osobný asistent, ktory ti pomôže s tvojimy ulohami.");
-Console.WriteLine("Ak nevieš aké veci viem pre teba spraviť napíš '/help'");
-
-string prikaz=Console.ReadLine();
-while (prikaz!="/exit"&&prikaz!="/sum"&&prikaz!="/odmocni"&&prikaz!="/find"&&prikaz!="/help"&&prikaz!="/rect"&&prikaz!="/array")
+void VykonajArray()
 {
-   Console.Write("Toto neni príkaz. Skús znova: "); 
-   prikaz=Console.ReadLine();
+    Console.Write("Zadaj číselné pole (čísla oddelené medzerou): ");
+    
+    int[] pole = null;
+    while (pole == null)
+    {
+        string vstup = Console.ReadLine();
+        string[] casti = vstup.Split(' ');
+        
+        int pocetCisel = 0;
+        for (int i = 0; i < casti.Length; i++)
+        {
+            if (casti[i] != "")
+            {
+                pocetCisel++;
+            }
+        }
+
+        if (pocetCisel == 0)
+        {
+            Console.Write("Pole nesmie byť prázdne. Skús znova: ");
+            continue;
+        }
+
+        bool jePlatne = true;
+        int[] docasnePole = new int[pocetCisel];
+        int indexDocasneho = 0;
+
+        for (int i = 0; i < casti.Length; i++)
+        {
+            if (casti[i] != "")
+            {
+                if (!int.TryParse(casti[i], out docasnePole[indexDocasneho]))
+                {
+                    jePlatne = false;
+                    break;
+                }
+                indexDocasneho++;
+            }
+        }
+
+        if (jePlatne)
+        {
+            pole = docasnePole;
+        }
+        else
+        {
+            Console.Write("Zadal si neplatné číslo. Zadaj celé čísla oddelené medzerou: ");
+        }
+    }
+
+    Console.WriteLine("Čo chceš spraviť s poľom? (find, min, sort, exit)");
+
+    while (true)
+    {
+        Console.Write("> ");
+        string prikaz = Console.ReadLine();
+
+        if (prikaz == "exit")
+        {
+            break;
+        }
+        else if (prikaz == "find")
+        {
+            Console.Write("Aké číslo chceš nájsť? ");
+            int hladane;
+            while (!int.TryParse(Console.ReadLine(), out hladane))
+            {
+                Console.Write("Toto nie je platné číslo. Skús znova: ");
+            }
+
+            int index = -1;
+            for (int i = 0; i < pole.Length; i++)
+            {
+                if (pole[i] == hladane)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index != -1)
+            {
+                Console.WriteLine("Hodnota " + hladane + " sa nachádza v poli na pozícii " + (index + 1) + ".");
+            }
+            else
+            {
+                Console.WriteLine("Hodnota " + hladane + " sa v poli nenachádza.");
+            }
+        }
+        else if (prikaz == "min")
+        {
+            int min = pole[0];
+            for (int i = 1; i < pole.Length; i++)
+            {
+                if (pole[i] < min)
+                {
+                    min = pole[i];
+                }
+            }
+            Console.WriteLine("Minimálna hodnota v poli je: " + min);
+        }
+        else if (prikaz == "sort")
+        {
+            for (int i = 0; i < pole.Length - 1; i++)
+            {
+                for (int j = i + 1; j < pole.Length; j++)
+                {
+                    if (pole[i] > pole[j])
+                    {
+                        int docasna = pole[i];
+                        pole[i] = pole[j];
+                        pole[j] = docasna;
+                    }
+                }
+            }
+
+            Console.Write("Pole bolo zoradené: ");
+            for (int i = 0; i < pole.Length; i++)
+            {
+                Console.Write(pole[i] + " ");
+            }
+            Console.WriteLine();
+        }
+        else
+        {
+            Console.WriteLine("Neznámy príkaz pre pole. Použi: find, min, sort alebo exit.");
+        }
+    }
 }
-while(prikaz!="/exit")
-{
-    if (prikaz == "/sum")
-    {
-        UrobSum();
-    }
-    else if (prikaz == "/odmocni")
-    {
-      UrobOdmocnenie();  
-    }
 
-    else if (prikaz == "/find")
+Console.WriteLine("Ahoj, som tvoj osobný asistent. Pre zoznam príkazov napíš 'help'.");
+
+while (true)
+{
+    Console.Write("Zadaj príkaz: ");
+    string prikaz = Console.ReadLine();
+
+    if (prikaz == "exit")
+    {
+        break;
+    }
+    else if (prikaz == "sum")
+    {
+        VykonajSum();
+    }
+    else if (prikaz == "odm")
+    {
+        VykonajOdm();
+    }
+    else if (prikaz == "find")
     {
         VykonajFind();
     }
-
-    else if (prikaz == "/rect")
+    else if (prikaz == "rect")
     {
         VykonajRect();
     }
-    
-    else if (prikaz=="/help")
+    else if (prikaz == "array")
+    {
+        VykonajArray();
+    }
+    else if (prikaz == "help")
     {
         VykonajHelp();
     }
-    else if (prikaz=="/array")
+    else
     {
-        Console.Write("Zadaj Vstupy do array: ");
-        int vstup;
-        while (!int.TryParse(Console.ReadLine(), out vstup))
-        {
-            Console.Write("Toto nie je číslo. Skús znova: ");
-        }
-
-        string vstupString = vstup.ToString();
-
-        int[] Arrays = Array.ConvertAll(vstupString.Split(' '), s => int.Parse(s.Trim()));
-
+        Console.WriteLine("Neznámy príkaz. Skús znova alebo napíš 'help'.");
     }
-    Console.Write("Napíš další príkaz: ");
-    prikaz = Console.ReadLine();
-    while (prikaz!="/exit"&&prikaz!="/sum"&&prikaz!="/odmocni"&&prikaz!="/find"&&prikaz!="/help"&&prikaz!="/rect"&&prikaz!="/array")
-    {
-        Console.Write("Toto neni príkaz. Skús znova: "); 
-        prikaz=Console.ReadLine();
-    }
-
-}
-if (prikaz == "/exit")
-{
-    return;
 }
