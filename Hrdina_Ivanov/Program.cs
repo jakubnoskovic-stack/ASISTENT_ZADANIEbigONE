@@ -1,4 +1,4 @@
-﻿namespace Uloha_1a_20._10;
+﻿namespace Hrdina_Ivanov;
 class Hrdina
 {
     public string Meno = "";
