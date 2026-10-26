@@ -18,7 +18,7 @@ class ucet
         return zostatok;
     }
 
-    public Boolean VeberPeniaze(double sumaNaVyber)
+    public Boolean VyberPeniaze(double sumaNaVyber)
     {
         if (sumaNaVyber > zostatok)
         {
@@ -37,6 +37,37 @@ class Program
 {
     static void Main(string[] args)
     {
+        double ZiskajDouble()
+        {
+            double medzicislo;
+            while (!double.TryParse(Console.ReadLine(), out medzicislo))
+            {
+                Console.Write("Toto nieje cislo. Skus znova: ");
+            }
+
+            return medzicislo;
+        }
         
+        ucet Ucet1=new ucet();
+        Ucet1.majitel = "Janko";
+        Ucet1.zostatok = 1000;
+
+        ucet Ucet2 = new ucet();
+        Ucet2.majitel = "Ferko";
+        Ucet2.zostatok = 300;
+
+
+        double Ucet2VyberPenaziCislo=ZiskajDouble();
+        Ucet2.VyberPeniaze(Ucet2VyberPenaziCislo);
+
+        double Ucet2VlozeniePeniazeCislo=ZiskajDouble();
+        Ucet2.VložPeniaze(Ucet2VlozeniePeniazeCislo);
+
+
+        double Ucet1VkladPenaziCislo = ZiskajDouble();
+        Ucet1.VložPeniaze(Ucet1VkladPenaziCislo);
+
+        double ucet1VyberPeniazeCislo = ZiskajDouble();
+        Ucet1.VyberPeniaze(ucet1VyberPeniazeCislo);
     }
 }
